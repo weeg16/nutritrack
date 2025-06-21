@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAFAFA">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/registerTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Create Account"
+            android:textColor="#4CAF50"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_extrabold"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/cardViewRegister" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewRegister"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="8dp"
+            app:layout_constraintTop_toBottomOf="@id/registerTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <EditText
+                    android:id="@+id/registerNameInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:backgroundTint="#4CAF50"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:hint="Name"
+                    android:inputType="textPersonName"
+                    android:padding="12dp" />
+
+                <EditText
+                    android:id="@+id/registerEmailInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:backgroundTint="#4CAF50"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:padding="12dp" />
+
+                <EditText
+                    android:id="@+id/registerPasswordInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:backgroundTint="#4CAF50"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:padding="12dp" />
+
+                <Button
+                    android:id="@+id/registerSubmitBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#4CAF50"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:padding="16dp"
+                    android:text="Register"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
