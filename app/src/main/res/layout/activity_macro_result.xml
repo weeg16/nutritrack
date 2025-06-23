@@ -9,7 +9,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingBottom="24dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -18,24 +20,24 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="#4CAF50"
-            android:layout_gravity="center_horizontal"
             android:fontFamily="@font/montserrat_extrabold"
             android:layout_marginBottom="24dp" />
 
-        <!-- Calories Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="6dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="24dp"
+            android:layout_marginHorizontal="4dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="10dp"
+            app:cardUseCompatPadding="true"
             android:backgroundTint="#E8F5E9">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="20dp">
 
                 <TextView
                     android:id="@+id/caloriesText"
@@ -52,16 +54,18 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="6dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="24dp"
+            android:layout_marginHorizontal="4dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="10dp"
+            app:cardUseCompatPadding="true"
             android:backgroundTint="#E3F2FD">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="20dp">
 
                 <TextView
                     android:id="@+id/proteinText"
@@ -78,16 +82,18 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="6dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="24dp"
+            android:layout_marginHorizontal="4dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="10dp"
+            app:cardUseCompatPadding="true"
             android:backgroundTint="#FFF3E0">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="20dp">
 
                 <TextView
                     android:id="@+id/carbsText"
@@ -104,15 +110,18 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="6dp"
+            android:layout_marginBottom="24dp"
+            android:layout_marginHorizontal="4dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="10dp"
+            app:cardUseCompatPadding="true"
             android:backgroundTint="#FCE4EC">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="20dp">
 
                 <TextView
                     android:id="@+id/fatsText"
