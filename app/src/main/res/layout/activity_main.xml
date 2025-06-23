@@ -1,82 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FAFAFA"
-    android:padding="24dp"
-    tools:context=".MainActivity">
+    android:padding="24dp">
 
-    <TextView
-        android:id="@+id/appTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Welcome to NutriTrack"
-        android:textColor="#4CAF50"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:fontFamily="@font/montserrat_extrabold"
-        android:gravity="center"
-        android:layout_marginBottom="32dp"
+    <ImageView
+        android:id="@+id/welcomeImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/illustration"
+        android:scaleType="centerInside"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/loginCard"
-        app:layout_constraintVertical_chainStyle="packed" />
+        android:layout_marginTop="32dp" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/loginCard"
+    <TextView
+        android:id="@+id/titleText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        card_view:cardCornerRadius="16dp"
-        card_view:cardElevation="8dp"
-        card_view:cardUseCompatPadding="true"
-        app:layout_constraintTop_toBottomOf="@id/appTitle"
+        android:text="Discover Your\nFitness Goals"
+        android:textColor="#212121"
+        android:textSize="24sp"
+        android:fontFamily="@font/montserrat_extrabold"
+        android:textAlignment="center"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/welcomeImage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/registerCard">
+        android:layout_marginTop="16dp" />
 
-        <Button
-            android:id="@+id/loginBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_green_button"
-            android:fontFamily="@font/montserrat_extrabold"
-            android:padding="16dp"
-            android:text="Login"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/registerCard"
+    <TextView
+        android:id="@+id/descriptionText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="16dp"
-        card_view:cardElevation="8dp"
-        card_view:cardUseCompatPadding="true"
-        app:layout_constraintTop_toBottomOf="@id/loginCard"
+        android:text="Track meals, monitor macros, and stay on top of your health goals."
+        android:textColor="#757575"
+        android:textSize="14sp"
+        android:fontFamily="@font/montserrat_medium"
+        android:textAlignment="center"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/titleText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_marginTop="8dp" />
 
-        <Button
-            android:id="@+id/registerBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_blue_button"
-            android:fontFamily="@font/montserrat_extrabold"
-            android:padding="16dp"
-            android:text="Register"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
-    </androidx.cardview.widget.CardView>
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:backgroundTint="#4CAF50"
+        android:textColor="@android:color/white"
+        android:textAllCaps="false"
+        android:fontFamily="@font/montserrat_medium"
+        android:textSize="16sp"
+        android:padding="12dp"
+        app:layout_constraintTop_toBottomOf="@id/descriptionText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp" />
+
+    <TextView
+        android:id="@+id/registerBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:textColor="#4CAF50"
+        android:textSize="16sp"
+        android:fontFamily="@font/montserrat_medium"
+        android:textStyle="bold"
+        android:padding="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/loginBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
