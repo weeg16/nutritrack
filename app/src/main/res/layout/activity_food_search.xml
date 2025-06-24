@@ -17,20 +17,22 @@
         android:textColor="#4CAF50"
         android:fontFamily="@font/montserrat_extrabold"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
         app:cardCornerRadius="12dp"
-        app:cardElevation="6dp"
-        android:layout_marginBottom="16dp">
+        app:cardElevation="6dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="16dp"
+            android:padding="12dp"
             android:gravity="center_vertical">
 
             <EditText
@@ -42,15 +44,18 @@
                 android:background="@android:color/transparent"
                 android:padding="8dp"
                 android:textSize="16sp"
-                android:fontFamily="@font/montserrat_medium"/>
+                android:fontFamily="@font/montserrat_medium"
+                android:textColor="#212121"
+                android:inputType="text" />
 
             <ImageButton
                 android:id="@+id/searchBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@android:drawable/ic_menu_search"
-                android:background="@android:color/transparent"
-                app:tint="#4CAF50" />
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:tint="#4CAF50"
+                android:contentDescription="Search" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -61,6 +66,6 @@
         android:layout_weight="1"
         android:paddingTop="8dp"
         android:clipToPadding="false"
-        android:scrollbars="vertical"/>
+        android:scrollbars="vertical" />
 
 </LinearLayout>
