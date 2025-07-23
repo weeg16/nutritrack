@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (dbHelper.checkUser(email, password)) {
                     sessionManager.setLogin(true);
-
+                    sessionManager.setUserEmail(email);
                     Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
                     finish();

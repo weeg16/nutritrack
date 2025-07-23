@@ -24,6 +24,15 @@ public class SessionManager {
         return prefs.getBoolean(KEY_IS_LOGGED_IN, false);
     }
 
+    public void setUserEmail(String email) {
+        editor.putString("user_email", email);
+        editor.apply();
+    }
+
+    public String getUserEmail() {
+        return prefs.getString("user_email", null);
+    }
+
     public void logout() {
         editor.clear();
         editor.apply();

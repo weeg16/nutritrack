@@ -11,4 +11,8 @@
         android:id="@+id/nav_summary"
         android:icon="@drawable/ic_summary"
         android:title="Summary" />
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/ic_logout"
+        android:title="Logout" />
 </menu>

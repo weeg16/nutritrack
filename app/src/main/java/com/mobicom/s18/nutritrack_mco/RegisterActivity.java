@@ -46,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Email already exists. Try another.", Toast.LENGTH_SHORT).show();
             }
+
         });
     }
 }

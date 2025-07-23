@@ -1,5 +1,6 @@
 package com.mobicom.s18.nutritrack_mco;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
@@ -37,7 +38,16 @@ public class DashboardActivity extends AppCompatActivity {
                         selectedFragment = new LogMealFragment();
                     } else if (itemId == R.id.nav_summary) {
                         selectedFragment = new WeeklySummaryFragment();
+                    } else if (itemId == R.id.nav_logout) {
+                        SessionManager sessionManager = new SessionManager(DashboardActivity.this);
+                        sessionManager.logout(); // Clear session
+
+                        Intent intent = new Intent(DashboardActivity.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Clear backstack
+                        startActivity(intent);
+                        return true;
                     }
+
 
                     if (selectedFragment != null) {
                         getSupportFragmentManager().beginTransaction()

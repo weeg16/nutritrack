@@ -28,11 +28,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         "email TEXT NOT NULL UNIQUE, " +
                         "password TEXT NOT NULL)";
         db.execSQL(createTable);
+
+        String createMealLogTable = "CREATE TABLE meal_logs (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "user_email TEXT NOT NULL, " +
+                "meal_name TEXT NOT NULL, " +
+                "calories REAL, " +
+                "protein REAL, " +
+                "carbs REAL, " +
+                "fats REAL, " +
+                "log_date TEXT NOT NULL)";
+        db.execSQL(createMealLogTable);
     }
+
+    public boolean insertMealLog(String userEmail, String mealName, double calories, double protein, double carbs, double fats, String logDate) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("user_email", userEmail);
+        values.put("meal_name", mealName);
+        values.put("calories", calories);
+        values.put("protein", protein);
+        values.put("carbs", carbs);
+        values.put("fats", fats);
+        values.put("log_date", logDate);
+
+        long result = db.insert("meal_logs", null, values);
+        return result != -1;
+    }
+
+    public Cursor getAllMealLogs(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM meal_logs WHERE user_email=? ORDER BY log_date DESC", new String[]{email});
+    }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS users");
+        db.execSQL("DROP TABLE IF EXISTS meal_logs");
         onCreate(db);
     }
 
