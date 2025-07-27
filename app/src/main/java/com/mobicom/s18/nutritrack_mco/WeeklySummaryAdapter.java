@@ -28,9 +28,13 @@ public class WeeklySummaryAdapter extends RecyclerView.Adapter<WeeklySummaryAdap
     @Override
     public void onBindViewHolder(@NonNull WeeklySummaryAdapter.ViewHolder holder, int position) {
         DailySummary summary = summaryList.get(position);
-        holder.dateTv.setText("Date: " + summary.date);
-        holder.caloriesTv.setText("Calories: " + summary.totalCalories + " kcal");
-        holder.macrosTv.setText("Protein: " + summary.totalProtein + "g | Carbs: " + summary.totalCarbs + "g | Fats: " + summary.totalFats + "g");
+        holder.dateTv.setText("Date: " + summary.getDate());
+        holder.caloriesTv.setText("Calories: " + summary.getTotalCalories() + " kcal");
+        holder.macrosTv.setText(
+                "Protein: " + summary.getTotalProtein() + "g | " +
+                        "Carbs: " + summary.getTotalCarbs() + "g | " +
+                        "Fats: " + summary.getTotalFats() + "g"
+        );
     }
 
     @Override

@@ -28,5 +28,11 @@ public class DashboardFragment extends Fragment {
         foodSearchBtn.setOnClickListener(v -> startActivity(new Intent(getActivity(), FoodSearchActivity.class)));
         updateGoalBtn.setOnClickListener(v -> startActivity(new Intent(getActivity(), UpdateGoalActivity.class)));
         manageLogsBtn.setOnClickListener(v -> startActivity(new Intent(getActivity(), ManageLogsActivity.class)));
+        Button chartSummaryBtn = view.findViewById(R.id.chartSummaryBtn);
+        chartSummaryBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ChartSummaryActivity.class);
+            startActivity(intent);
+        });
+
     }
 }

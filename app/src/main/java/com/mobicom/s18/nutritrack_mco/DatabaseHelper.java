@@ -9,6 +9,8 @@ import android.database.Cursor;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -94,6 +96,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int result = db.delete("meal_logs", "id=?", new String[]{String.valueOf(id)});
         return result > 0;
     }
+
+    public List<DailySummary> getMealLogsBetweenDates(String email, String startDate, String endDate) {
+        List<DailySummary> summaries = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT log_date, SUM(calories) as total_calories, " +
+                        "SUM(protein) as total_protein, SUM(carbs) as total_carbs, SUM(fats) as total_fats " +
+                        "FROM meal_logs WHERE user_email=? AND log_date BETWEEN ? AND ? " +
+                        "GROUP BY log_date ORDER BY log_date ASC",
+                new String[]{email, startDate, endDate});
+
+        if (cursor.moveToFirst()) {
+            do {
+                summaries.add(new DailySummary(
+                        cursor.getString(0),
+                        cursor.getDouble(1),
+                        cursor.getDouble(2),
+                        cursor.getDouble(3),
+                        cursor.getDouble(4)
+                ));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return summaries;
+    }
+
 
 
     @Override
