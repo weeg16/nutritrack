@@ -61,6 +61,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.rawQuery("SELECT * FROM meal_logs WHERE user_email=? ORDER BY log_date DESC", new String[]{email});
     }
 
+    public Cursor getMealLogsForLast7Days(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery(
+                "SELECT log_date, " +
+                        "SUM(calories) as total_calories, " +
+                        "SUM(protein) as total_protein, " +
+                        "SUM(carbs) as total_carbs, " +
+                        "SUM(fats) as total_fats " +
+                        "FROM meal_logs " +
+                        "WHERE user_email=? AND log_date >= date('now', '-6 days') " +
+                        "GROUP BY log_date ORDER BY log_date DESC",
+                new String[]{email}
+        );
+    }
+
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
