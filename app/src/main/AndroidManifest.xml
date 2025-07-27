@@ -13,6 +13,9 @@
         android:theme="@style/Theme.NutriTrackMCO"
         tools:targetApi="31">
         <activity
+            android:name=".ChartSummaryActivity"
+            android:exported="false" />
+        <activity
             android:name=".UpdateGoalActivity"
             android:exported="false" />
         <activity

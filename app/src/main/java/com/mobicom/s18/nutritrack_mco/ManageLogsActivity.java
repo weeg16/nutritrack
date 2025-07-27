@@ -2,21 +2,17 @@ package com.mobicom.s18.nutritrack_mco;
 
 import android.database.Cursor;
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ManageLogsActivity extends AppCompatActivity {
-
     private RecyclerView recyclerView;
-    private ManageMealAdapter adapter;
-    private List<MealLog> mealLogs;
+    private ManageMealLogAdapter adapter;
     private DatabaseHelper dbHelper;
-    private SessionManager sessionManager;
+    private SessionManager session;
+    private List<Object> groupedItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,18 +21,18 @@ public class ManageLogsActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.mealLogRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         dbHelper = new DatabaseHelper(this);
-        sessionManager = new SessionManager(this);
-        String email = sessionManager.getUserEmail();
+        session = new SessionManager(this);
 
-        loadMealLogs(email);
+        loadData();
     }
 
-    private void loadMealLogs(String email) {
-        mealLogs = new ArrayList<>();
+    private void loadData() {
+        groupedItems = new ArrayList<>();
+        String email = session.getUserEmail();
         Cursor cursor = dbHelper.getAllMealLogs(email);
 
+        Map<String, List<MealLog>> groupedByDate = new LinkedHashMap<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
@@ -47,12 +43,21 @@ public class ManageLogsActivity extends AppCompatActivity {
                 double fats = cursor.getDouble(cursor.getColumnIndexOrThrow("fats"));
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("log_date"));
 
-                mealLogs.add(new MealLog(id, name, cal, protein, carbs, fats, date));
+                MealLog log = new MealLog(id, name, cal, protein, carbs, fats, date);
+                if (!groupedByDate.containsKey(date)) {
+                    groupedByDate.put(date, new ArrayList<>());
+                }
+                groupedByDate.get(date).add(log);
             } while (cursor.moveToNext());
             cursor.close();
         }
 
-        adapter = new ManageMealAdapter(this, mealLogs);
+        for (String date : groupedByDate.keySet()) {
+            groupedItems.add(date);
+            groupedItems.addAll(groupedByDate.get(date)); // Logs
+        }
+
+        adapter = new ManageMealLogAdapter(this, groupedItems, this::loadData);
         recyclerView.setAdapter(adapter);
     }
 }

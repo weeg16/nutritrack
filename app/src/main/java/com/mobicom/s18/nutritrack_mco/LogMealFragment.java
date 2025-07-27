@@ -38,7 +38,6 @@ public class LogMealFragment extends Fragment {
         carbsEt = view.findViewById(R.id.carbsEt);
         fatsEt = view.findViewById(R.id.fatsEt);
         saveLogBtn = view.findViewById(R.id.saveLogBtn);
-        viewMealLogBtn = view.findViewById(R.id.viewMealLogBtn);
 
         dbHelper = new DatabaseHelper(requireContext());
 
@@ -72,11 +71,6 @@ public class LogMealFragment extends Fragment {
             } else {
                 Toast.makeText(getContext(), "Failed to log meal", Toast.LENGTH_SHORT).show();
             }
-        });
-
-        viewMealLogBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), LogMealActivity.class);
-            startActivity(intent);
         });
 
         return view;
