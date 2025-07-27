@@ -9,7 +9,9 @@ import android.database.Cursor;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -122,6 +124,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return summaries;
     }
 
+    public double getTodaysCalories(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String today = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+        Cursor cursor = db.rawQuery(
+                "SELECT SUM(calories) FROM meal_logs WHERE user_email=? AND log_date=?",
+                new String[]{email, today}
+        );
+
+        double total = 0;
+        if (cursor.moveToFirst()) {
+            total = cursor.isNull(0) ? 0 : cursor.getDouble(0);
+        }
+        cursor.close();
+        return total;
+    }
 
 
     @Override

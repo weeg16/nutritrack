@@ -54,7 +54,7 @@ public class ManageLogsActivity extends AppCompatActivity {
 
         for (String date : groupedByDate.keySet()) {
             groupedItems.add(date);
-            groupedItems.addAll(groupedByDate.get(date)); // Logs
+            groupedItems.addAll(groupedByDate.get(date));
         }
 
         adapter = new ManageMealLogAdapter(this, groupedItems, this::loadData);

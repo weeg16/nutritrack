@@ -40,10 +40,10 @@ public class DashboardActivity extends AppCompatActivity {
                         selectedFragment = new WeeklySummaryFragment();
                     } else if (itemId == R.id.nav_logout) {
                         SessionManager sessionManager = new SessionManager(DashboardActivity.this);
-                        sessionManager.logout(); // Clear session
+                        sessionManager.logout();
 
                         Intent intent = new Intent(DashboardActivity.this, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Clear backstack
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         return true;
                     }

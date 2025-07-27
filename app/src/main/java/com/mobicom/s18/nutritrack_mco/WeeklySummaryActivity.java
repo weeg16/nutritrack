@@ -29,7 +29,7 @@ public class WeeklySummaryActivity extends AppCompatActivity {
         sessionManager = new SessionManager(this);
         String email = sessionManager.getUserEmail();
 
-        summaryList = getDailySummaries(email); // fixed: now matches method definition below
+        summaryList = getDailySummaries(email);
         adapter = new WeeklySummaryAdapter(summaryList);
         recyclerView.setAdapter(adapter);
     }

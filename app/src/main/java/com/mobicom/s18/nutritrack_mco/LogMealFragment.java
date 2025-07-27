@@ -31,7 +31,6 @@ public class LogMealFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_log_meal, container, false);
 
-        // Bind views
         mealNameEt = view.findViewById(R.id.mealNameEt);
         caloriesEt = view.findViewById(R.id.caloriesEt);
         proteinEt = view.findViewById(R.id.proteinEt);
