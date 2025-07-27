@@ -76,6 +76,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         );
     }
 
+    public boolean updateMealLog(int id, String mealName, double calories, double protein, double carbs, double fats) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("meal_name", mealName);
+        values.put("calories", calories);
+        values.put("protein", protein);
+        values.put("carbs", carbs);
+        values.put("fats", fats);
+
+        int result = db.update("meal_logs", values, "id=?", new String[]{String.valueOf(id)});
+        return result > 0;
+    }
+
+    public boolean deleteMealLog(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int result = db.delete("meal_logs", "id=?", new String[]{String.valueOf(id)});
+        return result > 0;
+    }
 
 
     @Override

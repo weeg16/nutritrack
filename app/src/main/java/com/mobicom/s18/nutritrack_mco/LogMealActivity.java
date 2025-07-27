@@ -34,6 +34,7 @@ public class LogMealActivity extends AppCompatActivity {
         Cursor cursor = dbHelper.getAllMealLogs(email);
         if (cursor != null && cursor.moveToFirst()) {
             do {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
                 String name = cursor.getString(cursor.getColumnIndexOrThrow("meal_name"));
                 double cal = cursor.getDouble(cursor.getColumnIndexOrThrow("calories"));
                 double protein = cursor.getDouble(cursor.getColumnIndexOrThrow("protein"));
@@ -41,7 +42,7 @@ public class LogMealActivity extends AppCompatActivity {
                 double fats = cursor.getDouble(cursor.getColumnIndexOrThrow("fats"));
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("log_date"));
 
-                mealLogs.add(new MealLog(name, cal, protein, carbs, fats, date));
+                mealLogs.add(new MealLog(id, name, cal, protein, carbs, fats, date));
             } while (cursor.moveToNext());
             cursor.close();
         }

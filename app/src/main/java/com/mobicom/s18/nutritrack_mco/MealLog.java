@@ -1,10 +1,12 @@
 package com.mobicom.s18.nutritrack_mco;
 
 public class MealLog {
+    public int id;
     public String mealName, date;
     public double calories, protein, carbs, fats;
 
-    public MealLog(String mealName, double calories, double protein, double carbs, double fats, String date) {
+    public MealLog(int id, String mealName, double calories, double protein, double carbs, double fats, String date) {
+        this.id = id;
         this.mealName = mealName;
         this.calories = calories;
         this.protein = protein;
@@ -13,3 +15,4 @@ public class MealLog {
         this.date = date;
     }
 }
+
