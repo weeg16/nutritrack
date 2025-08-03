@@ -2,6 +2,7 @@ package com.mobicom.s18.nutritrack_mco;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ public class WeeklySummaryActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private WeeklySummaryAdapter adapter;
+    private ImageView backButton;
     private List<DailySummary> summaryList;
     private DatabaseHelper dbHelper;
     private SessionManager sessionManager;
@@ -22,6 +24,7 @@ public class WeeklySummaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weekly_summary);
 
+        backButton = findViewById(R.id.backButton);
         recyclerView = findViewById(R.id.summaryRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -32,6 +35,8 @@ public class WeeklySummaryActivity extends AppCompatActivity {
         summaryList = getDailySummaries(email);
         adapter = new WeeklySummaryAdapter(summaryList);
         recyclerView.setAdapter(adapter);
+        backButton.setOnClickListener(v -> onBackPressed());
+
     }
 
     private List<DailySummary> getDailySummaries(String email) {

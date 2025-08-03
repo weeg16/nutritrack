@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +15,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private SessionManager sessionManager;
     private DatabaseHelper dbHelper;
-
+    private ImageView backButton;
     private EditText emailInput, passwordInput;
     private Button loginSubmitBtn;
 
@@ -26,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         sessionManager = new SessionManager(this);
         dbHelper = new DatabaseHelper(this);
 
+        backButton = findViewById(R.id.backButton);
         emailInput = findViewById(R.id.emailInput);
         passwordInput = findViewById(R.id.passwordInput);
         loginSubmitBtn = findViewById(R.id.loginSubmitBtn);
@@ -52,5 +54,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+        backButton.setOnClickListener(v -> onBackPressed());
     }
 }
