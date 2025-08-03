@@ -3,9 +3,11 @@ package com.mobicom.s18.nutritrack_mco;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -20,9 +22,17 @@ public class DashboardActivity extends AppCompatActivity {
         bottomNav = findViewById(R.id.bottomNav);
         bottomNav.setOnItemSelectedListener(navListener);
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentContainer, new DashboardFragment())
-                .commit();
+        // Check if MacroResultActivity is directing here
+        boolean showDashboard = getIntent().getBooleanExtra("showDashboard", false);
+        if (showDashboard) {
+            // Force select Dashboard tab
+            bottomNav.setSelectedItemId(R.id.nav_dashboard);
+        } else {
+            // Default: Show DashboardFragment
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer, new DashboardFragment())
+                    .commit();
+        }
     }
 
     private final BottomNavigationView.OnItemSelectedListener navListener =
@@ -47,7 +57,6 @@ public class DashboardActivity extends AppCompatActivity {
                         startActivity(intent);
                         return true;
                     }
-
 
                     if (selectedFragment != null) {
                         getSupportFragmentManager().beginTransaction()

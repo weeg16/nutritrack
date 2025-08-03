@@ -50,8 +50,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "protein_goal INTEGER, " +
                 "carbs_goal INTEGER, " +
                 "fats_goal INTEGER, " +
-                "weight REAL)";
+                "weight REAL, " +
+                "goal_type TEXT, " +
+                "activity_level TEXT)";
         db.execSQL(createGoalTable);
+    }
+
+    public boolean setUserGoal(String email, int cal, int protein, int carbs, int fats, double weight, String goalType, String activityLevel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("email", email);
+        values.put("calorie_goal", cal);
+        values.put("protein_goal", protein);
+        values.put("carbs_goal", carbs);
+        values.put("fats_goal", fats);
+        values.put("weight", weight);
+        values.put("goal_type", goalType);
+        values.put("activity_level", activityLevel);
+        long result = db.insertWithOnConflict("user_goals", null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        return result != -1;
+    }
+
+    public UserGoal getUserGoal(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT calorie_goal, protein_goal, carbs_goal, fats_goal, weight, goal_type, activity_level FROM user_goals WHERE email = ?", new String[]{email});
+
+        UserGoal goal = null;
+        if (cursor.moveToFirst()) {
+            goal = new UserGoal(
+                    cursor.getInt(0),    // calorie_goal
+                    cursor.getInt(1),    // protein_goal
+                    cursor.getInt(2),    // carbs_goal
+                    cursor.getInt(3),    // fats_goal
+                    cursor.getDouble(4),  // weight
+                    cursor.getString(5), // goal_type
+                    cursor.getString(6)  // activity_level
+            );
+        }
+        cursor.close();
+        return goal;
     }
 
     public boolean insertMealLog(String userEmail, String mealName, double calories, double protein, double carbs, double fats, String logDate) {
@@ -158,23 +195,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public UserGoal getUserGoal(String email) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT calorie_goal, protein_goal, carbs_goal, fats_goal, weight FROM user_goals WHERE email = ?", new String[]{email});
-
-        UserGoal goal = null;
-        if (cursor.moveToFirst()) {
-            goal = new UserGoal(
-                    cursor.getInt(0),    // calorie_goal
-                    cursor.getInt(1),    // protein_goal
-                    cursor.getInt(2),    // carbs_goal
-                    cursor.getInt(3),    // fats_goal
-                    cursor.getDouble(4)  // weight
-            );
-        }
-        cursor.close();
-        return goal;
-    }
 
     public int getUserCalorieGoal(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
