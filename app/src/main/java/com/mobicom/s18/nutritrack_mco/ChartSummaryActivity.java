@@ -3,6 +3,7 @@ package com.mobicom.s18.nutritrack_mco;
 import android.app.DatePickerDialog;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ public class ChartSummaryActivity extends AppCompatActivity {
     private TextView startDateTv, endDateTv, proteinSummaryTv, carbsSummaryTv, fatsSummaryTv;
     private Switch switchMacroMode;
     private BarChart barChart, macroBarChart;
+    private ImageView backButton;
     private PieChart pieChart;
 
     private DatabaseHelper dbHelper;
@@ -50,6 +52,7 @@ public class ChartSummaryActivity extends AppCompatActivity {
         macroBarChart = findViewById(R.id.macroBarChart);
         startDateTv = findViewById(R.id.startDateTv);
         endDateTv = findViewById(R.id.endDateTv);
+        backButton = findViewById(R.id.backButton);
         switchMacroMode = findViewById(R.id.switchMacroMode);
 
         proteinSummaryTv = findViewById(R.id.proteinSummaryTv);
@@ -74,6 +77,7 @@ public class ChartSummaryActivity extends AppCompatActivity {
         switchMacroMode.setOnCheckedChangeListener((buttonView, isChecked) -> updateCharts());
 
         updateCharts();
+        backButton.setOnClickListener(v -> onBackPressed());
     }
 
     private void showDatePicker(boolean isStart) {

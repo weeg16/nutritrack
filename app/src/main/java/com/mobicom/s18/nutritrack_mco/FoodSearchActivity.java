@@ -26,7 +26,7 @@ import java.util.Calendar;
 public class FoodSearchActivity extends AppCompatActivity {
 
     private EditText foodSearchInput;
-    private ImageButton searchBtn;
+    private ImageButton searchBtn, backButton;
     private RecyclerView foodSearchResultsRecycler;
     private FoodSearchAdapter adapter;
 
@@ -43,6 +43,7 @@ public class FoodSearchActivity extends AppCompatActivity {
 
         foodSearchInput = findViewById(R.id.foodSearchInput);
         searchBtn = findViewById(R.id.searchBtn);
+        backButton = findViewById(R.id.backButton);
         foodSearchResultsRecycler = findViewById(R.id.foodSearchResultsRecycler);
 
         sessionManager = new SessionManager(this);
@@ -61,6 +62,8 @@ public class FoodSearchActivity extends AppCompatActivity {
                 searchFood(query);
             }
         });
+
+        backButton.setOnClickListener(v -> onBackPressed());
     }
 
     private void searchFood(String query) {

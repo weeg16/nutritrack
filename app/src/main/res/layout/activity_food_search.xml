@@ -7,6 +7,24 @@
     android:background="#FAFAFA"
     android:padding="24dp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="8dp">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="Back"
+            app:tint="#4CAF50"
+            android:padding="8dp" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/foodSearchHeader"
         android:layout_width="wrap_content"

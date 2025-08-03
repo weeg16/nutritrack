@@ -2,6 +2,8 @@ package com.mobicom.s18.nutritrack_mco;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.widget.ImageView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +11,7 @@ import java.util.*;
 
 public class ManageLogsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
+    private ImageView backButton;
     private ManageMealLogAdapter adapter;
     private DatabaseHelper dbHelper;
     private SessionManager session;
@@ -19,12 +22,16 @@ public class ManageLogsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_logs);
 
+        backButton = findViewById(R.id.backButton);
+
         recyclerView = findViewById(R.id.mealLogRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         dbHelper = new DatabaseHelper(this);
         session = new SessionManager(this);
 
         loadData();
+        backButton.setOnClickListener(v -> onBackPressed());
+
     }
 
     private void loadData() {
