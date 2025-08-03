@@ -25,13 +25,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable =
+        String createUserTable =
                 "CREATE TABLE users (" +
                         "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         "name TEXT NOT NULL, " +
                         "email TEXT NOT NULL UNIQUE, " +
                         "password TEXT NOT NULL)";
-        db.execSQL(createTable);
+        db.execSQL(createUserTable);
 
         String createMealLogTable = "CREATE TABLE meal_logs (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -43,6 +43,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "fats REAL, " +
                 "log_date TEXT NOT NULL)";
         db.execSQL(createMealLogTable);
+
+        String createGoalTable = "CREATE TABLE user_goals (" +
+                "email TEXT PRIMARY KEY, " +
+                "calorie_goal INTEGER, " +
+                "protein_goal INTEGER, " +
+                "carbs_goal INTEGER, " +
+                "fats_goal INTEGER, " +
+                "weight REAL)";
+        db.execSQL(createGoalTable);
     }
 
     public boolean insertMealLog(String userEmail, String mealName, double calories, double protein, double carbs, double fats, String logDate) {
@@ -55,7 +64,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("carbs", carbs);
         values.put("fats", fats);
         values.put("log_date", logDate);
-
         long result = db.insert("meal_logs", null, values);
         return result != -1;
     }
@@ -88,7 +96,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("protein", protein);
         values.put("carbs", carbs);
         values.put("fats", fats);
-
         int result = db.update("meal_logs", values, "id=?", new String[]{String.valueOf(id)});
         return result > 0;
     }
@@ -108,7 +115,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         "FROM meal_logs WHERE user_email=? AND log_date BETWEEN ? AND ? " +
                         "GROUP BY log_date ORDER BY log_date ASC",
                 new String[]{email, startDate, endDate});
-
         if (cursor.moveToFirst()) {
             do {
                 summaries.add(new DailySummary(
@@ -131,7 +137,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "SELECT SUM(calories) FROM meal_logs WHERE user_email=? AND log_date=?",
                 new String[]{email, today}
         );
-
         double total = 0;
         if (cursor.moveToFirst()) {
             total = cursor.isNull(0) ? 0 : cursor.getDouble(0);
@@ -140,12 +145,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return total;
     }
 
+    public boolean setUserGoal(String email, int cal, int protein, int carbs, int fats, double weight) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("email", email);
+        values.put("calorie_goal", cal);
+        values.put("protein_goal", protein);
+        values.put("carbs_goal", carbs);
+        values.put("fats_goal", fats);
+        values.put("weight", weight);
+        long result = db.insertWithOnConflict("user_goals", null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        return result != -1;
+    }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS users");
-        db.execSQL("DROP TABLE IF EXISTS meal_logs");
-        onCreate(db);
+    public int getUserCalorieGoal(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT calorie_goal FROM user_goals WHERE email = ?", new String[]{email});
+        int goal = 0;
+        if (cursor.moveToFirst()) goal = cursor.getInt(0);
+        cursor.close();
+        return goal;
+    }
+
+    public double getUserWeight(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT weight FROM user_goals WHERE email = ?", new String[]{email});
+        double weight = 0;
+        if (cursor.moveToFirst()) weight = cursor.getDouble(0);
+        cursor.close();
+        return weight;
     }
 
     public boolean isEmailTaken(String email) {
@@ -155,17 +183,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return exists;
     }
+
     public boolean registerUser(String name, String email, String password) {
         if (isEmailTaken(email)) {
             return false;
         }
-
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("name", name);
         values.put("email", email);
         values.put("password", hashPassword(password));
-
         long result = db.insert("users", null, values);
         return result != -1;
     }
@@ -194,5 +221,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             e.printStackTrace();
             return password;
         }
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS users");
+        db.execSQL("DROP TABLE IF EXISTS meal_logs");
+        db.execSQL("DROP TABLE IF EXISTS user_goals");
+        onCreate(db);
     }
 }

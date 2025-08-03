@@ -15,6 +15,7 @@
         android:clipChildren="false"
         android:clipToPadding="false">
 
+        <!-- Calorie and weight display -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,6 +51,16 @@
                     android:textColor="#1B5E20"
                     android:textSize="36sp"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/weightValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text="—"
+                    android:textColor="#4CAF50"
+                    android:textSize="14sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -162,8 +173,8 @@
                     android:textColor="@android:color/white"
                     android:textSize="16sp"/>
             </LinearLayout>
-
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
