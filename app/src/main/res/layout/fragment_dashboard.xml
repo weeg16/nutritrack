@@ -15,7 +15,6 @@
         android:clipChildren="false"
         android:clipToPadding="false">
 
-        <!-- Calorie and weight display -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,15 +51,6 @@
                     android:textSize="36sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/weightValue"
-                    android:layout_width="8dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:text="—"
-                    android:textColor="#4CAF50"
-                    android:textSize="14sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

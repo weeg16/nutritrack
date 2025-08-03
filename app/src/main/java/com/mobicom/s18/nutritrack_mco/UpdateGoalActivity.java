@@ -32,26 +32,14 @@ public class UpdateGoalActivity extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
         sessionManager = new SessionManager(this);
 
-        // ⬇️ Prefill fields with existing goal if available
-        String email = sessionManager.getUserEmail();
-        if (email != null) {
-            UserGoal goal = dbHelper.getUserGoal(email);
-            if (goal != null) {
-                updateWeightEt.setText(String.valueOf(goal.getWeight()));
-                updateCaloriesEt.setText(String.valueOf(goal.getCalorieGoal()));
-                updateProteinEt.setText(String.valueOf(goal.getProteinGoal()));
-                updateCarbsEt.setText(String.valueOf(goal.getCarbsGoal()));
-                updateFatsEt.setText(String.valueOf(goal.getFatsGoal()));
-            }
-        }
-
         saveUpdatedGoalBtn.setOnClickListener(v -> {
-            try {
-                if (email == null) {
-                    Toast.makeText(this, "Session expired. Please log in again.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            String email = sessionManager.getUserEmail();
+            if (email == null) {
+                Toast.makeText(this, "Session expired. Please log in again.", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
+            try {
                 double weight = Double.parseDouble(updateWeightEt.getText().toString().trim());
                 int calorieGoal = Integer.parseInt(updateCaloriesEt.getText().toString().trim());
                 int proteinGoal = Integer.parseInt(updateProteinEt.getText().toString().trim());
@@ -71,8 +59,8 @@ public class UpdateGoalActivity extends AppCompatActivity {
             }
         });
 
-        viewGoalBtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, MacroResultActivity.class));
-        });
+        viewGoalBtn.setOnClickListener(v ->
+                startActivity(new Intent(this, MacroResultActivity.class))
+        );
     }
 }

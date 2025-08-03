@@ -113,5 +113,44 @@
             android:background="@drawable/border_background"
             android:visibility="gone" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Intake vs Goals"
+            android:textSize="18sp"
+            android:textColor="#333"
+            android:fontFamily="@font/montserrat_medium"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:id="@+id/proteinSummaryTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Protein: 0g / 0g"
+            android:textSize="16sp"
+            android:textColor="#1B5E20"
+            android:fontFamily="@font/montserrat_medium"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/carbsSummaryTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Carbs: 0g / 0g"
+            android:textSize="16sp"
+            android:textColor="#0D47A1"
+            android:fontFamily="@font/montserrat_medium"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/fatsSummaryTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fats: 0g / 0g"
+            android:textSize="16sp"
+            android:textColor="#C2185B"
+            android:fontFamily="@font/montserrat_medium"
+            android:layout_marginBottom="24dp" />
+
     </LinearLayout>
 </ScrollView>

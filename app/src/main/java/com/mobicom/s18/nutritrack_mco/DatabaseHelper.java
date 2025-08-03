@@ -194,6 +194,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return weight;
     }
 
+    public int getUserProteinGoal(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT protein_goal FROM user_goals WHERE email = ?", new String[]{email});
+        int goal = 0;
+        if (cursor.moveToFirst()) goal = cursor.getInt(0);
+        cursor.close();
+        return goal;
+    }
+
+    public int getUserCarbsGoal(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT carbs_goal FROM user_goals WHERE email = ?", new String[]{email});
+        int goal = 0;
+        if (cursor.moveToFirst()) goal = cursor.getInt(0);
+        cursor.close();
+        return goal;
+    }
+
+    public int getUserFatsGoal(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT fats_goal FROM user_goals WHERE email = ?", new String[]{email});
+        int goal = 0;
+        if (cursor.moveToFirst()) goal = cursor.getInt(0);
+        cursor.close();
+        return goal;
+    }
+
     public boolean isEmailTaken(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT id FROM users WHERE email=?", new String[]{email});

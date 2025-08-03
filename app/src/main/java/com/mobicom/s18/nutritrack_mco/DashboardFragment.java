@@ -22,7 +22,6 @@ public class DashboardFragment extends Fragment {
 
     private void updateGoalDisplay() {
         TextView calorieCountTv = requireView().findViewById(R.id.calorieCounterValue);
-        TextView weightValueTv = requireView().findViewById(R.id.weightValue);
 
         DatabaseHelper dbHelper = new DatabaseHelper(getContext());
         SessionManager sessionManager = new SessionManager(getContext());
@@ -36,12 +35,6 @@ public class DashboardFragment extends Fragment {
             calorieCountTv.setText(String.format("%.0f kcal / %d kcal", consumed, goal));
         } else {
             calorieCountTv.setText(String.format("%.0f kcal", consumed));
-        }
-
-        if (weight > 0) {
-            weightValueTv.setText(String.format("%.1f kg", weight));
-        } else {
-            weightValueTv.setText("—");
         }
     }
 

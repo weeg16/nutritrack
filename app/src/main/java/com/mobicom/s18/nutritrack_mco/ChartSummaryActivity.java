@@ -12,7 +12,6 @@ import androidx.core.content.res.ResourcesCompat;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -29,7 +28,7 @@ import java.util.Date;
 
 public class ChartSummaryActivity extends AppCompatActivity {
 
-    private TextView startDateTv, endDateTv;
+    private TextView startDateTv, endDateTv, proteinSummaryTv, carbsSummaryTv, fatsSummaryTv;
     private Switch switchMacroMode;
     private BarChart barChart, macroBarChart;
     private PieChart pieChart;
@@ -52,6 +51,10 @@ public class ChartSummaryActivity extends AppCompatActivity {
         startDateTv = findViewById(R.id.startDateTv);
         endDateTv = findViewById(R.id.endDateTv);
         switchMacroMode = findViewById(R.id.switchMacroMode);
+
+        proteinSummaryTv = findViewById(R.id.proteinSummaryTv);
+        carbsSummaryTv = findViewById(R.id.carbsSummaryTv);
+        fatsSummaryTv = findViewById(R.id.fatsSummaryTv);
 
         dbHelper = new DatabaseHelper(this);
         sessionManager = new SessionManager(this);
@@ -118,6 +121,22 @@ public class ChartSummaryActivity extends AppCompatActivity {
             macroBarChart.setVisibility(BarChart.GONE);
             setupMacronutrientPieChart(summaries);
         }
+
+        // Update current vs goal macros
+        double totalProtein = 0, totalCarbs = 0, totalFats = 0;
+        for (DailySummary s : summaries) {
+            totalProtein += s.getTotalProtein();
+            totalCarbs += s.getTotalCarbs();
+            totalFats += s.getTotalFats();
+        }
+
+        int goalProtein = dbHelper.getUserProteinGoal(email);
+        int goalCarbs = dbHelper.getUserCarbsGoal(email);
+        int goalFats = dbHelper.getUserFatsGoal(email);
+
+        proteinSummaryTv.setText(String.format("Protein: %.0f g / %d g", totalProtein, goalProtein));
+        carbsSummaryTv.setText(String.format("Carbs: %.0f g / %d g", totalCarbs, goalCarbs));
+        fatsSummaryTv.setText(String.format("Fats: %.0f g / %d g", totalFats, goalFats));
     }
 
     private void setupCalorieBarChart(ArrayList<DailySummary> summaries) {
@@ -154,7 +173,6 @@ public class ChartSummaryActivity extends AppCompatActivity {
 
     private void setupMacronutrientPieChart(ArrayList<DailySummary> summaries) {
         float protein = 0f, carbs = 0f, fats = 0f;
-
         for (DailySummary s : summaries) {
             protein += s.getTotalProtein();
             carbs += s.getTotalCarbs();
