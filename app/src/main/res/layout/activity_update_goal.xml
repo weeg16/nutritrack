@@ -54,6 +54,24 @@
                 android:orientation="vertical"
                 android:padding="24dp">
 
+                <Spinner
+                    android:id="@+id/goalSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#BDBDBD"
+                    android:fontFamily="@font/montserrat_medium"
+                    />
+
+                <Spinner
+                    android:id="@+id/activityLevelSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:backgroundTint="#BDBDBD"
+                    android:fontFamily="@font/montserrat_medium"
+                    />
+
                 <EditText
                     android:id="@+id/updateWeightEt"
                     android:layout_width="match_parent"
