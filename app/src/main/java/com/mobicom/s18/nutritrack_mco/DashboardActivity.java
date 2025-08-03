@@ -22,17 +22,9 @@ public class DashboardActivity extends AppCompatActivity {
         bottomNav = findViewById(R.id.bottomNav);
         bottomNav.setOnItemSelectedListener(navListener);
 
-        // Check if MacroResultActivity is directing here
-        boolean showDashboard = getIntent().getBooleanExtra("showDashboard", false);
-        if (showDashboard) {
-            // Force select Dashboard tab
-            bottomNav.setSelectedItemId(R.id.nav_dashboard);
-        } else {
-            // Default: Show DashboardFragment
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentContainer, new DashboardFragment())
-                    .commit();
-        }
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainer, new DashboardFragment())
+                .commit();
     }
 
     private final BottomNavigationView.OnItemSelectedListener navListener =

@@ -171,16 +171,6 @@
                     android:textStyle="bold"
                     android:fontFamily="@font/montserrat_medium" />
             </LinearLayout>
-            <Button
-                android:id="@+id/backToDashboardBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="Back to Dashboard"
-                android:textColor="@android:color/white"
-                android:backgroundTint="#4CAF50"
-                android:fontFamily="@font/montserrat_medium"
-                android:textAllCaps="false"/>
 
         </androidx.cardview.widget.CardView>
 

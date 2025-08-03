@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
@@ -14,6 +15,7 @@ public class UpdateGoalActivity extends AppCompatActivity {
 
     private EditText updateWeightEt, updateCaloriesEt, updateProteinEt, updateCarbsEt, updateFatsEt;
     private Button saveUpdatedGoalBtn, viewGoalBtn;
+    private ImageView backButton;
     private Spinner goalSpinner, activityLevelSpinner;
 
     private DatabaseHelper dbHelper;
@@ -24,7 +26,7 @@ public class UpdateGoalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_goal);
 
-        // Initialize UI
+        backButton = findViewById(R.id.backButton);
         updateWeightEt = findViewById(R.id.updateWeightEt);
         updateCaloriesEt = findViewById(R.id.updateCaloriesEt);
         updateProteinEt = findViewById(R.id.updateProteinEt);
@@ -35,13 +37,11 @@ public class UpdateGoalActivity extends AppCompatActivity {
         goalSpinner = findViewById(R.id.goalSpinner);
         activityLevelSpinner = findViewById(R.id.activityLevelSpinner);
 
-        // Populate Goal Spinner
         ArrayAdapter<CharSequence> goalAdapter = ArrayAdapter.createFromResource(
                 this, R.array.goal_options, android.R.layout.simple_spinner_item);
         goalAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         goalSpinner.setAdapter(goalAdapter);
 
-        // Populate Activity Level Spinner
         ArrayAdapter<CharSequence> activityAdapter = ArrayAdapter.createFromResource(
                 this, R.array.activity_level_options, android.R.layout.simple_spinner_item);
         activityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -59,7 +59,6 @@ public class UpdateGoalActivity extends AppCompatActivity {
             }
 
             try {
-                // Input Validation
                 String weightStr = updateWeightEt.getText().toString().trim();
                 String calorieStr = updateCaloriesEt.getText().toString().trim();
                 String proteinStr = updateProteinEt.getText().toString().trim();
@@ -78,11 +77,9 @@ public class UpdateGoalActivity extends AppCompatActivity {
                 int carbGoal = Integer.parseInt(carbStr);
                 int fatGoal = Integer.parseInt(fatStr);
 
-                // You can retrieve the spinner values here if needed
                 String selectedGoal = goalSpinner.getSelectedItem().toString();
                 String selectedActivityLevel = activityLevelSpinner.getSelectedItem().toString();
 
-                // Save to database
                 boolean saved = dbHelper.setUserGoal(email, calorieGoal, proteinGoal, carbGoal, fatGoal, weight, selectedGoal,selectedActivityLevel );
 
                 if (saved) {
@@ -103,5 +100,7 @@ public class UpdateGoalActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MacroResultActivity.class);
             startActivity(intent);
         });
+        backButton.setOnClickListener(v -> onBackPressed());
+
     }
 }
