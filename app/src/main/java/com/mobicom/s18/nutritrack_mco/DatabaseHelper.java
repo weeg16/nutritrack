@@ -158,6 +158,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    public UserGoal getUserGoal(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT calorie_goal, protein_goal, carbs_goal, fats_goal, weight FROM user_goals WHERE email = ?", new String[]{email});
+
+        UserGoal goal = null;
+        if (cursor.moveToFirst()) {
+            goal = new UserGoal(
+                    cursor.getInt(0),    // calorie_goal
+                    cursor.getInt(1),    // protein_goal
+                    cursor.getInt(2),    // carbs_goal
+                    cursor.getInt(3),    // fats_goal
+                    cursor.getDouble(4)  // weight
+            );
+        }
+        cursor.close();
+        return goal;
+    }
+
     public int getUserCalorieGoal(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT calorie_goal FROM user_goals WHERE email = ?", new String[]{email});

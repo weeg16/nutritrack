@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class UpdateGoalActivity extends AppCompatActivity {
 
     private EditText updateWeightEt, updateCaloriesEt, updateProteinEt, updateCarbsEt, updateFatsEt;
-    private Button saveUpdatedGoalBtn;
+    private Button saveUpdatedGoalBtn, viewGoalBtn;
 
     private DatabaseHelper dbHelper;
     private SessionManager sessionManager;
@@ -27,13 +27,26 @@ public class UpdateGoalActivity extends AppCompatActivity {
         updateCarbsEt = findViewById(R.id.updateCarbsEt);
         updateFatsEt = findViewById(R.id.updateFatsEt);
         saveUpdatedGoalBtn = findViewById(R.id.saveUpdatedGoalBtn);
+        viewGoalBtn = findViewById(R.id.viewGoalBtn);
 
         dbHelper = new DatabaseHelper(this);
         sessionManager = new SessionManager(this);
 
+        // ⬇️ Prefill fields with existing goal if available
+        String email = sessionManager.getUserEmail();
+        if (email != null) {
+            UserGoal goal = dbHelper.getUserGoal(email);
+            if (goal != null) {
+                updateWeightEt.setText(String.valueOf(goal.getWeight()));
+                updateCaloriesEt.setText(String.valueOf(goal.getCalorieGoal()));
+                updateProteinEt.setText(String.valueOf(goal.getProteinGoal()));
+                updateCarbsEt.setText(String.valueOf(goal.getCarbsGoal()));
+                updateFatsEt.setText(String.valueOf(goal.getFatsGoal()));
+            }
+        }
+
         saveUpdatedGoalBtn.setOnClickListener(v -> {
             try {
-                String email = sessionManager.getUserEmail();
                 if (email == null) {
                     Toast.makeText(this, "Session expired. Please log in again.", Toast.LENGTH_SHORT).show();
                     return;
@@ -49,7 +62,6 @@ public class UpdateGoalActivity extends AppCompatActivity {
 
                 if (saved) {
                     Toast.makeText(this, "Goals updated successfully!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(this, MacroResultActivity.class));
                 } else {
                     Toast.makeText(this, "Failed to update goals.", Toast.LENGTH_SHORT).show();
                 }
@@ -57,6 +69,10 @@ public class UpdateGoalActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Toast.makeText(this, "Please fill all fields correctly.", Toast.LENGTH_SHORT).show();
             }
+        });
+
+        viewGoalBtn.setOnClickListener(v -> {
+            startActivity(new Intent(this, MacroResultActivity.class));
         });
     }
 }
